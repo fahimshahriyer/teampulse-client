@@ -1,6 +1,6 @@
-import { MainNav } from "@/components/main-nav";
-import Image from "next/image";
+"use client";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <main className=""></main>;
+  redirect("/auth/login");
 }

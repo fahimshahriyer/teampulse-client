@@ -1,40 +1,31 @@
+"use client";
 import Link from "next/link";
-
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
-export function MainNav({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) {
+interface MainNavProps extends React.HTMLAttributes<HTMLElement> {
+  items: {
+    href: string;
+    title: string;
+  }[];
+}
+
+export function MainNav({ className, items, ...props }: MainNavProps) {
+  const pathname = usePathname();
   return (
     <nav
       className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
     >
-      <Link
-        href="/teampulse/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Dashboard
-      </Link>
-      <Link
-        href="/teampulse/project"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Projects
-      </Link>
-      <Link
-        href="/teampulse/team"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Teams
-      </Link>
-      <Link
-        href="/teampulse/settings"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Settings
-      </Link>
+      {items.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        >
+          {item.title}
+        </Link>
+      ))}
     </nav>
   );
 }
